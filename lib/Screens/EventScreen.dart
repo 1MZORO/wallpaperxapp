@@ -13,7 +13,59 @@ class EventScreen extends StatelessWidget {
     final tabProvider = Provider.of<TabProvider>(context);
 
     return Scaffold(
-      drawer: Drawer(),
+      appBar: AppBar(
+        title: Text('Wallpaper App'),
+        centerTitle: true,
+        elevation: 0,
+      ),
+      drawer: Drawer(
+        backgroundColor: Theme.of(context).colorScheme.surface,
+
+        child: Column(
+          children: [
+            DrawerHeader(
+                child: Center(
+                  child: Icon(
+                    Icons.message,
+                    color: Theme.of(context).colorScheme.primary,
+                    size: 40,
+                  ),
+                )),
+
+            Padding(
+              padding: const EdgeInsets.only(left: 25),
+              child: ListTile(
+                title: Text('H O M E'),
+                leading: Icon(Icons.home),
+                onTap: (){
+                  Navigator.pop(context);
+                },
+              ),
+            ),
+
+            Padding(
+              padding: const EdgeInsets.only(left: 25),
+              child: ListTile(
+                title: Text('S E T T I N G'),
+                leading: Icon(Icons.settings),
+                onTap: (){
+                  // Navigator.push(context, MaterialPageRoute(builder: (_)=>SettingScreen()));
+                },
+              ),
+            ),
+
+            Padding(
+              padding: const EdgeInsets.only(left: 25),
+              child: ListTile(
+                title: Text('L O G O U T'),
+                leading: Icon(Icons.logout),
+                onTap: (){
+                },
+              ),
+            ),
+          ],
+        ),
+      ),
       body: _getScreen(tabProvider.selectedIndex), // Change screen dynamically
       bottomNavigationBar: CurvedNavigationBar(
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,

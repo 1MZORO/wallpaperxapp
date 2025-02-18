@@ -18,6 +18,8 @@ class AppThemes {
         foregroundColor: Colors.white,
         padding: EdgeInsets.symmetric(vertical: 12, horizontal: 20),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+        minimumSize: Size(50, 400),
+        maximumSize: Size(50, 450)
       ),
     ),
     bottomNavigationBarTheme: BottomNavigationBarThemeData(
