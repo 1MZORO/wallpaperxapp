@@ -15,7 +15,6 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   final apiCall = ApiCall();
-  final data = ImageModel;
 
   //
   // @override

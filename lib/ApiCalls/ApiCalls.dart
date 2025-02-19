@@ -9,13 +9,33 @@ import '../Models/ImageModel.dart';
 
 class ApiCall {
   final Dio dio = Dio();
-  String url =
-      "https://pixabay.com/api/?key=48876447-768da478662460195df17d214";
+  String url = "https://pixabay.com/api/?key=";
+  String key = "48876447-768da478662460195df17d214";
+  String and = "&q=";
 
   Future<List<ImageModel>> fetchImages() async {
     try {
       final response =
-          await dio.get(url, queryParameters: {"page": 1, "per_page": 100});
+          await dio.get("$url$key", queryParameters: {"page": 1, "per_page": 100});
+      if (response.statusCode == 200) {
+        log('Success');
+        List<dynamic> hits = response.data['hits'];
+        return hits.map((json) => ImageModel.fromJson(json)).toList();
+      } else {
+        return [];
+      }
+    } on DioException catch (e) {
+      log("DioException: ${e.toString()}");
+      return [];
+    }
+  }
+
+  Future<List<ImageModel>> searchImages(String text) async {
+    try {
+      log(text);
+      log("$url$key$and$text");
+      final response =
+      await dio.get("$url$key$and$text", queryParameters: {"page": 1, "per_page": 100});
       if (response.statusCode == 200) {
         log('Success');
         List<dynamic> hits = response.data['hits'];

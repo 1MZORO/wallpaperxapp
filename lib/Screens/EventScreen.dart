@@ -3,6 +3,7 @@ import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:provider/provider.dart';
 import 'package:wallpaperxapp/Screens/HomeScreen.dart';
 import 'package:wallpaperxapp/Screens/ProfileScreen.dart';
+import 'package:wallpaperxapp/Screens/SearchScreen.dart';
 import '../Providers/TabProvider.dart';
 
 class EventScreen extends StatelessWidget {
@@ -38,7 +39,7 @@ class EventScreen extends StatelessWidget {
                 title: Text('H O M E'),
                 leading: Icon(Icons.home),
                 onTap: (){
-                  Navigator.pop(context);
+                  // Navigator.push(context, MaterialPageRoute(builder: (_)=>HomeScreen()));
                 },
               ),
             ),
@@ -90,7 +91,7 @@ class EventScreen extends StatelessWidget {
       case 0:
         return const HomeScreen();
       case 1:
-        return Center(child: Text('Search Screen', style: TextStyle(fontSize: 24)));
+        return SearchScreen();
       case 2:
         return const ProfileScreen();
       default:

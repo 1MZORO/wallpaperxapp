@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
+import 'package:wallpaperxapp/Providers/SearchProvider.dart';
 import 'package:wallpaperxapp/Screens/EventScreen.dart';
 import 'Providers/TabProvider.dart';
 import 'Providers/ThemeProvider.dart';
@@ -16,6 +17,7 @@ void main() {
       providers: [
         ChangeNotifierProvider(create: (_) => TabProvider()),
         ChangeNotifierProvider(create: (_) => ThemeProvider()),
+        ChangeNotifierProvider(create: (_) => SearchProvider())
       ],
       child: MyApp(),
     ),
