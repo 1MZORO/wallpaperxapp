@@ -10,12 +10,18 @@ class DetailScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size;
+    // final size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
-        title: Text('Wallpaper'),
+        title: Text('Download',style: TextStyle(
+          color: Theme.of(context).scaffoldBackgroundColor,
+          fontSize: 20
+        ),),
         centerTitle: true,
-        backgroundColor: Colors.blue,
+        backgroundColor: Theme.of(context).primaryColor,
+        leading: IconButton(onPressed: (){
+          Navigator.pop(context);
+        }, icon: Icon(Icons.arrow_back_ios_rounded,color: Theme.of(context).scaffoldBackgroundColor,)),
       ),
       body: SingleChildScrollView(
         child: Container(
@@ -46,32 +52,39 @@ class DetailScreen extends StatelessWidget {
 
                   },
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.blue,
-                    foregroundColor: Colors.white,
+                    backgroundColor: Theme.of(context).primaryColor,
+                    foregroundColor: Theme.of(context).scaffoldBackgroundColor,
                     padding: EdgeInsets.symmetric(vertical: 12, horizontal: 20),
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10)),
                     minimumSize: Size(300, 50),
                     maximumSize: Size(double.infinity, 50),
                   ),
-                  child: Text('Download')),
+                  child: Text('Save in Gallery',style: TextStyle(fontSize: 18),)),
               SizedBox(
                 height: 10,
               ),
+              /*
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Padding(
                     padding: const EdgeInsets.only(left: 10),
-                    child: Container(
-                      padding: EdgeInsets.all(10),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(20),
-                        color: Colors.lightBlue,
-                      ),
-                      child: Text(
-                        'Set Wallpaper',
-                        style: TextStyle(color: Colors.white),
+                    child: GestureDetector(
+                      onTap: (){
+                        // final apiCall = ApiCall();
+                        // apiCall.setWallpaper(context, url);
+                      },
+                      child: Container(
+                        padding: EdgeInsets.all(10),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(20),
+                          color: Colors.lightBlue,
+                        ),
+                        child: Text(
+                          'Set Wallpaper',
+                          style: TextStyle(color: Colors.white),
+                        ),
                       ),
                     ),
                   ),
@@ -95,6 +108,7 @@ class DetailScreen extends StatelessWidget {
                   ),
                 ],
               )
+              */
             ],
           ),
         ),

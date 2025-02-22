@@ -55,47 +55,94 @@ class ApiCall {
         PermissionStatus status = await Permission.storage.request();
         if (!status.isGranted) {
           ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(content: Text("Permission is denied $status")));
+            SnackBar(content: Text("Permission denied: $status")),
+          );
+          return;
         }
 
-        var response = await dio.get(url,
-            options: Options(responseType: ResponseType.bytes));
+        var response = await dio.get(
+          url,
+          options: Options(responseType: ResponseType.bytes),
+        );
 
         final result = await ImageGallerySaverPlus.saveImage(
-            Uint8List.fromList(response.data),
-            quality: 60,
-            name: "HelloTest");
-        final st = result['isSuccess'];
-        if (st) {
+          Uint8List.fromList(response.data),
+          quality: 60,
+          name: "wallpaper",
+        );
+
+        if (result != null && result['isSuccess'] == true) {
           ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(content: Text("Image is saved in gallery")));
+            SnackBar(content: Text("Image saved in gallery!")),
+          );
+        } else {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text("Failed to save image.")),
+          );
         }
       }
+    } on DioException catch (e) {
+      log("Dio Error: ${e.message}");
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text("Download failed: ${e.message}")),
+      );
     } catch (e) {
-      log("Error ${e.toString()}");
-      ScaffoldMessenger.of(context)
-          .showSnackBar(SnackBar(content: Text("Unable To download Image")));
+      log("Error: ${e.toString()}");
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text("Unable to download image.")),
+      );
     }
   }
 
   Future<void> requestStoragePermission(BuildContext context, String imageUrl) async {
     if (Platform.isAndroid) {
-      PermissionStatus permission =
-          await Permission.manageExternalStorage.request();
-      log("Permission :: $permission");
+      PermissionStatus permission = await Permission.manageExternalStorage.request();
+      log("Permission: $permission");
+
       if (permission.isGranted) {
-        log("Permission Granted !!");
+        log("Permission Granted!");
         await downloadAndSaveImage(context, imageUrl);
       } else {
         ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text("Permission is denied $permission")));
+          SnackBar(content: Text("Permission denied: $permission")),
+        );
       }
-    } else {
-      if (Platform.isIOS && Platform.isWindows) {
-        ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text("Currently feature is not available")));
-        // downloadAndSaveImage(imageUrl);
-      }
+    } else if (Platform.isIOS || Platform.isWindows) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text("Feature not available on this platform.")),
+      );
     }
   }
+
+  /*
+  Future<void> setWallpaper(BuildContext context, String imageUrl) async {
+    try {
+      final response = await Dio().get(
+        imageUrl,
+        options: Options(responseType: ResponseType.bytes), // Important for binary data
+      );
+      log("1");
+      final directory = await getTemporaryDirectory();
+      final filePath = "${directory.path}/wallpaper.jpg";
+      File file = File(filePath);
+      await file.writeAsBytes(Uint8List.fromList(response.data));
+      log("2");
+
+      int location = WallpaperManagerFlutter.HOME_SCREEN;
+      await WallpaperManagerFlutter().setwallpaperfromFile(file.path.toString(), location);
+      log("1");
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text("Wallpaper Set Successfully!")),
+      );
+
+    } catch (e) {
+      log(e.toString());
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text("Failed to Set Wallpaper: $e")),
+      );
+    }
+  }
+*/
+
 }

@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:wallpaperxapp/Providers/SearchProvider.dart';
 import 'package:wallpaperxapp/Screens/EventScreen.dart';
+import 'package:wallpaperxapp/Screens/ProfileScreen.dart';
 import 'Providers/TabProvider.dart';
 import 'Providers/ThemeProvider.dart';
 import 'Utils/AppTheme.dart';
@@ -29,13 +30,10 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final themeProvider = Provider.of<ThemeProvider>(context);
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      themeMode: themeProvider.themeMode,
-      theme: AppThemes.lightTheme,
-      darkTheme: AppThemes.darkTheme,
-      home: const EventScreen(),
+      theme: Provider.of<ThemeProvider>(context).themeData,
+      home:  EventScreen(),
     );
   }
 }

@@ -14,11 +14,6 @@ class EventScreen extends StatelessWidget {
     final tabProvider = Provider.of<TabProvider>(context);
 
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Wallpaper App'),
-        centerTitle: true,
-        elevation: 0,
-      ),
       drawer: Drawer(
         backgroundColor: Theme.of(context).colorScheme.surface,
 
@@ -89,13 +84,14 @@ class EventScreen extends StatelessWidget {
   Widget _getScreen(int index) {
     switch (index) {
       case 0:
-        return const HomeScreen();
+        return  HomeScreen();
       case 1:
         return SearchScreen();
       case 2:
-        return const ProfileScreen();
+        return  ProfileScreen();
       default:
-        return const HomeScreen();
+        return  HomeScreen();
     }
   }
+
 }
