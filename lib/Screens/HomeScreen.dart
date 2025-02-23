@@ -29,89 +29,80 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     bool isConnected = Provider.of<ConnectivityProvider>(context).isConnected;
-    return DefaultTabController(
+    return isConnected ? DefaultTabController(
       length: 4,
       child: Scaffold(
-          // backgroundColor: Colors.grey,
-          appBar: AppBar(
-            title: Text(
-              'H o m e',
-              style:
-                  TextStyle(color: Theme.of(context).scaffoldBackgroundColor,fontFamily: 'MyFont',fontWeight: FontWeight.bold),
+        appBar: AppBar(
+          title: Text(
+            'H o m e',
+            style: TextStyle(
+              color: Theme.of(context).scaffoldBackgroundColor,
+              fontFamily: 'MyFont',
+              fontWeight: FontWeight.bold,
             ),
-            backgroundColor: Theme.of(context).primaryColor,
-            centerTitle: true,
-            elevation: 0,
-            iconTheme: Theme.of(context).appBarTheme.iconTheme,
           ),
-          body: Stack(children: [
-            Container(
-              margin: EdgeInsets.symmetric(horizontal: 5, vertical: 10),
+          backgroundColor: Theme.of(context).primaryColor,
+          centerTitle: true,
+          elevation: 0,
+          iconTheme: Theme.of(context).appBarTheme.iconTheme,
+        ),
+        body: NestedScrollView(
+          headerSliverBuilder: (context, innerBoxIsScrolled) => [
+            SliverToBoxAdapter(
               child: Column(
                 children: [
                   TabBar(
                     tabs: [
-                      Tab(
-                        text: "Home",
-                      ),
-                      Tab(
-                        text: "Anime",
-                      ),
-                      Tab(
-                        text: "Nature",
-                      ),
-                      Tab(
-                        text: "Astrology",
-                      ),
+                      Tab(text: "Home"),
+                      Tab(text: "Anime"),
+                      Tab(text: "Nature"),
+                      Tab(text: "Astrology"),
                     ],
                   ),
-                  // 'https://picsum.photos/700?random=$index'
                   SizedBox(
-                    height: 240,
+                    height: 240, // Carousel height
                     child: CarouselView(
-                        itemExtent: size.width - 32,
-                        children: List.generate(6, (int index) {
-                          // return Image.asset(images[index],fit: BoxFit.cover,) ;
-                          String? url =
-                              'https://picsum.photos/700?random=$index';
-                          return GestureDetector(
-                            onTap: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (_) => DetailScreen(url: url)));
-                            },
-                            child: CachedNetworkImage(
-                              imageUrl: url,
-                              fit: BoxFit.cover,
-                              placeholder: (context, url) => const Center(
-                                child: CircularProgressIndicator(),
+                      itemExtent: size.width - 32,
+                      children: List.generate(6, (int index) {
+                        String? url = 'https://picsum.photos/700?random=$index';
+                        return GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (_) => DetailScreen(url: url),
                               ),
-                              errorWidget: (context, url, error) =>
-                                  const Center(
-                                child: Icon(Icons.broken_image, size: 50),
-                              ),
+                            );
+                          },
+                          child: CachedNetworkImage(
+                            imageUrl: url,
+                            fit: BoxFit.cover,
+                            placeholder: (context, url) => const Center(
+                              child: CircularProgressIndicator(),
                             ),
-                          );
-                        })),
-                  ),
-                  Expanded(
-                    child: TabBarView(
-                      children: [
-                        _buildImageGrid(apiCall.fetchImages()),
-                        _buildImageGrid(apiCall.searchImages('Anime')),
-                        _buildImageGrid(apiCall.searchImages('Nature')),
-                        _buildImageGrid(apiCall.searchImages('Astrology')),
-                      ],
+                            errorWidget: (context, url, error) =>
+                            const Center(child: Icon(Icons.broken_image, size: 50)),
+                          ),
+                        );
+                      }),
                     ),
                   ),
-
                 ],
               ),
             ),
-            if (!isConnected) ConnectionFailed()
-          ])),
-    );
+          ],
+          body: TabBarView(
+            children: [
+              _buildImageGrid(apiCall.fetchImages()),
+              _buildImageGrid(apiCall.searchImages('Anime')),
+              _buildImageGrid(apiCall.searchImages('Nature')),
+              _buildImageGrid(apiCall.searchImages('Astrology')),
+            ],
+          ),
+        ),
+      ),
+    ) : ConnectionFailed();
+
   }
   Widget _buildImageGrid(Future<List<ImageModel>> ApiCall){
     return FutureBuilder<List<ImageModel>>(

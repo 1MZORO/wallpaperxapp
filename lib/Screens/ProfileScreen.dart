@@ -50,33 +50,33 @@ class _ProfileScreenState extends State<ProfileScreen> {
           const Divider(),
 
           // Logout
-          ListTile(
-            leading: const Icon(Icons.logout, color: Colors.red),
-            title: const Text("Logout", style: TextStyle(color: Colors.red)),
-            onTap: () {
-              // Handle logout action
-              showDialog(
-                context: context,
-                builder: (context) => AlertDialog(
-                  title: const Text("Logout"),
-                  content: const Text("Are you sure you want to log out?"),
-                  actions: [
-                    TextButton(
-                      onPressed: () => Navigator.pop(context),
-                      child: const Text("Cancel"),
-                    ),
-                    TextButton(
-                      onPressed: () {
-                        Navigator.pop(context);
-                        // Perform logout action here
-                      },
-                      child: const Text("Logout", style: TextStyle(color: Colors.red)),
-                    ),
-                  ],
-                ),
-              );
-            },
-          ),
+          // ListTile(
+          //   leading: const Icon(Icons.logout, color: Colors.red),
+          //   title: const Text("Logout", style: TextStyle(color: Colors.red)),
+          //   onTap: () {
+          //     // Handle logout action
+          //     showDialog(
+          //       context: context,
+          //       builder: (context) => AlertDialog(
+          //         title: const Text("Logout"),
+          //         content: const Text("Are you sure you want to log out?"),
+          //         actions: [
+          //           TextButton(
+          //             onPressed: () => Navigator.pop(context),
+          //             child: const Text("Cancel"),
+          //           ),
+          //           TextButton(
+          //             onPressed: () {
+          //               Navigator.pop(context);
+          //               // Perform logout action here
+          //             },
+          //             child: const Text("Logout", style: TextStyle(color: Colors.red)),
+          //           ),
+          //         ],
+          //       ),
+          //     );
+          //   },
+          // ),
         ],
       ),
     );

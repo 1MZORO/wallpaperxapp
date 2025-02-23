@@ -1,6 +1,7 @@
 import 'dart:developer';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
 import 'package:wallpaperxapp/ApiCalls/ApiCalls.dart';
 import 'package:wallpaperxapp/Utils/ConnectionFailed.dart';
@@ -38,7 +39,7 @@ class DetailScreen extends StatelessWidget {
                     child: CachedNetworkImage(
                       imageUrl: url,
                       fit: BoxFit.cover,
-                      // placeholder: (context,url)=>Center(child: CircularProgressIndicator(),),
+                      placeholder: (context,url)=>Center(child: Lottie.asset('assets/lottie/loading.json',height: 150),),
                       errorWidget: (context, url, error) => const Center(
                         child: Icon(Icons.broken_image, size: 80),
                       ),
