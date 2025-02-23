@@ -13,12 +13,10 @@ class DetailScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     bool isConnected = Provider.of<ConnectivityProvider>(context).isConnected;
+    final size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
-        title: Text('Download',style: TextStyle(
-          color: Theme.of(context).scaffoldBackgroundColor,
-          fontSize: 20
-        ),),
+        title: Text('D o w n l o a d',style: TextStyle(color: Theme.of(context).scaffoldBackgroundColor,fontFamily: 'MyFont',fontWeight: FontWeight.bold),),
         centerTitle: true,
         backgroundColor: Theme.of(context).primaryColor,
         leading: IconButton(onPressed: (){
@@ -28,12 +26,12 @@ class DetailScreen extends StatelessWidget {
       body: Stack(
         children:[ SingleChildScrollView(
           child: Container(
-            margin: EdgeInsets.symmetric(horizontal: 20),
+            margin: EdgeInsets.symmetric(horizontal: size.width *.03),
             child: Column(
               children: [
                 Container(
-                  height: 600,
-                  width: 300,
+                  height: size.height * .8,
+                  width: size.width * .9,
                   margin: EdgeInsets.all(12),
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(12),
@@ -42,7 +40,7 @@ class DetailScreen extends StatelessWidget {
                       fit: BoxFit.cover,
                       // placeholder: (context,url)=>Center(child: CircularProgressIndicator(),),
                       errorWidget: (context, url, error) => const Center(
-                        child: Icon(Icons.broken_image, size: 50),
+                        child: Icon(Icons.broken_image, size: 80),
                       ),
                     ),
                   ),
@@ -50,9 +48,7 @@ class DetailScreen extends StatelessWidget {
                 ElevatedButton(
                     onPressed: ()async {
                       final apiCall = ApiCall();
-                      await apiCall.requestStoragePermission(context, url);
-                      log("response :: ");
-
+                      await apiCall.downloadAndSaveImage(context, url);
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Theme.of(context).primaryColor,
@@ -60,10 +56,10 @@ class DetailScreen extends StatelessWidget {
                       padding: EdgeInsets.symmetric(vertical: 12, horizontal: 20),
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10)),
-                      minimumSize: Size(300, 50),
+                      minimumSize: Size(size.width*.88, 50),
                       maximumSize: Size(double.infinity, 50),
                     ),
-                    child: Text('Save in Gallery',style: TextStyle(fontSize: 18),)),
+                    child: Text('Save in Gallery',style: TextStyle(color: Theme.of(context).scaffoldBackgroundColor,fontFamily: 'MyFont',fontWeight: FontWeight.bold,fontSize: 18),)),
                 SizedBox(
                   height: 10,
                 ),

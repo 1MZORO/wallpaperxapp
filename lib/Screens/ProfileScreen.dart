@@ -17,7 +17,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Profile"),
+        title: Text("P r o f i l e",style: TextStyle(color: Theme.of(context).scaffoldBackgroundColor,fontFamily: 'MyFont',fontWeight: FontWeight.bold),),
         centerTitle: true,
       ),
       body: Column(
@@ -33,7 +33,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
             ),
           ),
 
-          const SizedBox(height: 30),
+          const SizedBox(height: 60),
 
           // Dark Mode Toggle
           ListTile(

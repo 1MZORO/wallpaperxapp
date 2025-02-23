@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
-
 import 'EventScreen.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -11,7 +10,6 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
-
 @override
   void initState() {
   Future.delayed(const Duration(seconds: 5), () {
