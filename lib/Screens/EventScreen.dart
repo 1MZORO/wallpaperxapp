@@ -62,7 +62,7 @@ class EventScreen extends StatelessWidget {
           ],
         ),
       ),
-      body: _getScreen(tabProvider.selectedIndex), // Change screen dynamically
+      body: _getScreen(tabProvider.selectedIndex),
       bottomNavigationBar: CurvedNavigationBar(
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         buttonBackgroundColor: Theme.of(context).primaryColor,
@@ -73,9 +73,9 @@ class EventScreen extends StatelessWidget {
           Icon(Icons.search, size: 20, color: Theme.of(context).scaffoldBackgroundColor),
           Icon(Icons.person, size: 20, color: Theme.of(context).scaffoldBackgroundColor),
         ],
-        index: tabProvider.selectedIndex, // Set the active tab
+        index: tabProvider.selectedIndex, 
         onTap: (index) {
-          tabProvider.changeTab(index); // Update tab using Provider
+          tabProvider.changeTab(index); 
         },
       ),
     );
